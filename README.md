@@ -9,13 +9,13 @@ Note: this repo was created with vanilla `rush init`
 
 ### 1. Select yarn in `rush.json`
 
-```json
+```jsonc
 {
-  ...
+  // ...
   // "pnpmVersion": "6.7.1",
   // "npmVersion": "4.5.0",
   "yarnVersion": "1.22.11"
-  ...
+  // ...
 }
 ```
 
