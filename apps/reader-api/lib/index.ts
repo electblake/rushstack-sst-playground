@@ -14,7 +14,7 @@ export default async function main(app: sst.App): Promise<void> {
   // set aws sdk region globally
   AWSConfig.update({ region: app.region })
 
-  new ReaderStack(app, 'reader-api', {
+  await new ReaderStack(app, 'reader-api', {
     topicParamName: `/${app.stage}/domain-events-sample-domain/eventStreamTopicArn`,
   })
 
