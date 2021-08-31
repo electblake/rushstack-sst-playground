@@ -4,9 +4,9 @@ import { QueueEncryption, FifoThroughputLimit } from '@aws-cdk/aws-sqs'
 import { Duration } from '@aws-cdk/core'
 import { SqsEventSource } from '@aws-cdk/aws-lambda-event-sources'
 import { BillingMode } from '@aws-cdk/aws-dynamodb'
-
+import { SSM } from 'aws-sdk'
 interface ReaderStackProps extends sst.StackProps {
-  eventStreamTopicArn: string
+  topicParamName: string
 }
 
 export default class ReaderStack extends sst.Stack {
@@ -18,16 +18,46 @@ export default class ReaderStack extends sst.Stack {
 
   constructor(scope: sst.App, id: string, props: ReaderStackProps) {
     super(scope, id, props)
-    this.makeQueue()
-    this.makeProjectionTable()
-    this.importAndSubscribeTopic(props.eventStreamTopicArn, this.queue)
-    // functions
-    this.addReaderProjector(this.queue, this.table)
-    this.addReaderApi(this.table)
 
-    this.addOutputs({
-      apiUrl: this.api.url,
+    this.init(props).then((config) => {
+      this.makeQueue()
+      this.makeProjectionTable()
+      this.importAndSubscribeTopic(config.eventStreamTopicArn, this.queue)
+      // functions
+      this.addReaderProjector(this.queue, this.table)
+      this.addReaderApi(this.table)
+
+      this.addOutputs({
+        apiUrl: this.api.url,
+      })
     })
+  }
+
+  /**
+   * Do any initialization async before sync resources defined
+   */
+  private async init(props: ReaderStackProps): Promise<{ eventStreamTopicArn: string }> {
+    const ssm = new SSM()
+
+    let eventStreamTopicArn
+    const Name = props.topicParamName
+    try {
+      const req = await ssm
+        .getParameter({
+          Name,
+        })
+        .promise()
+      eventStreamTopicArn = req.Parameter?.Value as string
+    } catch (err) {
+      console.error(err)
+    }
+    if (!eventStreamTopicArn || eventStreamTopicArn.length <= 0) {
+      throw new Error(`Could not resolve eventStreamTopic from ${Name}, see above for error details.`)
+    }
+
+    return {
+      eventStreamTopicArn,
+    }
   }
 
   addReaderApi(table: sst.Table): void {
@@ -74,17 +104,17 @@ export default class ReaderStack extends sst.Stack {
   }
 
   makeProjectionTable(): void {
-    this.table = new sst.Table(this, 'readerProjectionTableRev20210831', {
+    this.table = new sst.Table(this, 'genericProjectionTable', {
       fields: {
         rootId: sst.TableFieldType.STRING,
         id: sst.TableFieldType.STRING,
-        revision: sst.TableFieldType.STRING,
       },
       primaryIndex: {
         partitionKey: 'rootId',
         sortKey: 'id',
       },
       dynamodbTable: {
+        tableName: undefined, // auto-generate name to avoid collisions and replacement issues
         billingMode: BillingMode.PAY_PER_REQUEST,
         serverSideEncryption: true,
       },
