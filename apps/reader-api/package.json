@@ -11,11 +11,16 @@
   },
   "devDependencies": {
     "@aws-cdk/assert": "1.114.0",
-    "@types/aws-lambda": "^8.10.70"
+    "@types/aws-lambda": "^8.10.70",
+    "@types/jest": "~27.0.1"
   },
   "dependencies": {
     "@serverless-stack/cli": "0.40.2",
     "@serverless-stack/resources": "0.40.2",
-    "@aws-cdk/core": "1.114.0"
+    "@aws-cdk/core": "1.114.0",
+    "@aws-cdk/aws-sqs": "1.114.0",
+    "@aws-cdk/aws-lambda-event-sources": "1.114.0",
+    "aws-lambda": "~1.0.6",
+    "domain-events": "*"
   }
 }
