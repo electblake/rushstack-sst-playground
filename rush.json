@@ -390,11 +390,23 @@
   "projects": [
     {
       "packageName": "reader-api",
-      "projectFolder": "apps/reader-api"
+      "projectFolder": "apps/reader-api",
+      "reviewCategory": "apps"
     },
     {
-      "packageName": "events-core",
-      "projectFolder": "apps/events-core"
+      "packageName": "writer-api",
+      "projectFolder": "apps/writer-api",
+      "reviewCategory": "apps"
+    },
+    {
+      "packageName": "domain-events",
+      "projectFolder": "infrastructure/domain-events",
+      "reviewCategory": "infra"
+    },
+    {
+      "packageName": "milestone-events",
+      "projectFolder": "infrastructure/milestone-events",
+      "reviewCategory": "infra"
     }
     // {
     //   /**
