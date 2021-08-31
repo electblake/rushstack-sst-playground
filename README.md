@@ -67,7 +67,7 @@ and so on..
 
 ## Rush+SST Commands
 
-For definition of follow commands, checkout [command-line.json](common/config/rush/command-line.json)
+For definition custom commands, checkout [command-line.json](common/config/rush/command-line.json)
 
 ```bash
 $ rush cdk-version

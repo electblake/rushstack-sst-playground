@@ -75,13 +75,12 @@ export default class ReaderStack extends sst.Stack {
   }
 
   importAndSubscribeTopic(topicArn: string, queue: sst.Queue): void {
+    // or if we wanted to use stack-exports and tightly couple stacks
     // const importedTopicArn = Fn.importValue(`${this.stage}-domain-events-sample-domain--topicArn`)
 
     this.topic = new sst.Topic(this, 'domainTopic', {
       snsTopic: cdk.Topic.fromTopicArn(this, 'domainStreamTopic', topicArn),
     })
-
-    // console.log(`> Subscribing queue to ${this.topic.topicArn}`)
 
     this.topic.addSubscribers(this, [queue])
   }
