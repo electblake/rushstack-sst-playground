@@ -65,6 +65,31 @@ and so on..
 
 ### 5. Congrats, it works right?
 
+## Rush+SST Commands
+
+For definition of follow commands, checkout [command-line.json](common/config/rush/command-line.json)
+
+```bash
+$ rush cdk-version
+$ ...
+$ 1.114.0
+```
+
+```bash
+$ rush create-sst --help
+
+usage: rush create-sst [-h] -n SST_PROJECT_NAME -p SST_PROJECT_PATH
+
+create a new compatible sst project
+
+Optional arguments:
+  -h, --help            Show this help message and exit.
+  -n SST_PROJECT_NAME, --name SST_PROJECT_NAME
+                        name of new sst project
+  -p SST_PROJECT_PATH, --path SST_PROJECT_PATH
+                        path of new sst project. ex. '--path apps'
+```
+
 ## Known Issus
 
 - only yarn worked - I'm not sure why now, but `pnpm` did not work and rush only supports an old version of `npm` and I'd rather use node12 or 14
