@@ -1,5 +1,5 @@
 {
-  "name": "events-core",
+  "name": "domain-events",
   "stage": "dev",
   "region": "ca-central-1",
   "lint": true,

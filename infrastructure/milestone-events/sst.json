@@ -1,0 +1,7 @@
+{
+  "name": "milestone-events",
+  "stage": "dev",
+  "region": "ca-central-1",
+  "lint": true,
+  "typeCheck": true
+}

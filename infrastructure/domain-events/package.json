@@ -1,0 +1,27 @@
+{
+  "name": "domain-events",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "test": "sst test",
+    "start": "sst start",
+    "build": "sst build",
+    "deploy": "sst deploy",
+    "remove": "sst remove"
+  },
+  "devDependencies": {
+    "@aws-cdk/assert": "1.114.0",
+    "@types/aws-lambda": "~8.10.83"
+  },
+  "dependencies": {
+    "@serverless-stack/cli": "0.40.2",
+    "@serverless-stack/resources": "0.40.2",
+    "@aws-cdk/core": "1.114.0",
+    "aws-xray-sdk": "~3.3.3",
+    "aws-sdk": "~2.977.0",
+    "@aws-cdk/aws-dynamodb": "1.114.0",
+    "@aws-cdk/aws-lambda-event-sources": "1.114.0",
+    "aws-lambda": "~1.0.6",
+    "@aws-cdk/aws-ssm": "1.114.0"
+  }
+}
