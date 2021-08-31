@@ -11,6 +11,18 @@
    * "rush my-global-command --help".
    */
   "commands": [
+    {
+      "commandKind": "global",
+      "name": "cdk-version",
+      "summary": "get cdk version from `sst add-cdk`",
+      "shellCommand": "./common/scripts/cdk-version.sh"
+    },
+    {
+      "commandKind": "global",
+      "name": "create-sst",
+      "summary": "create a new compatible sst project",
+      "shellCommand": "./common/scripts/create-sst.sh"
+    }
     // {
     //   /**
     //    * (Required) Determines the type of custom command.
@@ -173,6 +185,24 @@
    * For example, you might define a "--production" parameter for the "rush build" command.
    */
   "parameters": [
+    {
+      "parameterKind": "string",
+      "longName": "--name",
+      "shortName": "-n",
+      "description": "name of new sst project",
+      "associatedCommands": ["create-sst"],
+      "argumentName": "SST_PROJECT_NAME",
+      "required": true
+    },
+    {
+      "parameterKind": "string",
+      "longName": "--path",
+      "shortName": "-p",
+      "description": "path of new sst project. ex. '--path apps'",
+      "associatedCommands": ["create-sst"],
+      "argumentName": "SST_PROJECT_PATH",
+      "required": true
+    }
     // {
     //   /**
     //    * (Required) Determines the type of custom parameter.
